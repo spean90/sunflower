@@ -1,0 +1,60 @@
+<div class="jumbotron" style="background-color: #f7ff98;background-origin:content-box;">
+    <div class="container" align="center">
+        <% if (success) { %>
+        <div class="alert alert-success">
+            <%= success %>
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+        </div>
+        <% } %>
+        <% if (error) { %>
+        <div class="alert alert-error">
+            <%= error %>
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+        </div>
+        <% } %>
+        <strong><h1><%=title%></h1></strong>
+        <p>赶紧加入吧！</p>
+        <% if (!user) { %>
+            <button class="btn btn-success" style="width: 100px" data-toggle="modal" data-target="#loginPanel">sign in</button>
+            <button class="btn btn-primary" onclick="index.signup()">sign up</button>
+        <% } else { %>
+            Welcome <%=user.username%>,
+            <a class="btn btn-link" href="/user/signout">sign out</a>
+        <% } %>
+    </div>
+</div>
+
+
+<div id="loginPanel" class="modal fade" role="dialog" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="modal-title">
+                    登录
+                </div>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="loginForm" action="/user/login" method="post">
+                    <div class="form-group">
+                        <label for="username">账号：</label>
+                        <input id="username" name="user[username]" class="form-control" type="text" placeholder="账号">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码：</label>
+                        <input type="password" name="user[password]" class="form-control" id="password" placeholder="密码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="submit" onclick="index.login()">
+                    登录
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/javascript/index.js"></script>

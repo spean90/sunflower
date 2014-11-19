@@ -1,0 +1,65 @@
+
+<div class="container">
+    <h1 ><%=title%></h1>
+    <hr />
+    <form role="form" action="/user/signup" method="post" class="form-horizontal" style="width: 70%">
+        <div class="form-group">
+            <label for="username" class="control-label col-sm-2">username:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="person[username]" placeholder="用户名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label col-sm-2">password:</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="person[password]" placeholder="密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="re_password" class="control-label col-sm-2">password:</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="re_password" name="person[re_password]" placeholder="确认密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tel" class="control-label col-sm-2">telephone:</label>
+            <div class="col-sm-10">
+                <input type="tel" id="tel" class="form-control" name="person[tel]" placeholder="电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="child_age" class="control-label col-sm-2">child_age:</label>
+            <div class="col-sm-10">
+                <input type="number" id="child_age" class="form-control" name="person[child[age]]" placeholder="小孩年龄">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="child_class" class="control-label col-sm-2">child_class:</label>
+            <div class="col-sm-10">
+                <input type="text" id="child_class" class="form-control" name="person[child[class]]" placeholder="小孩班级">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="child_name" class="control-label col-sm-2">child_name:</label>
+            <div class="col-sm-10">
+                <input  id="child_name" class="form-control" name="person[child[name]]" placeholder="小孩姓名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="control-label col-sm-2">sex</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="person[child[sex]]" value="1" checked> male
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name=person[child[sex]]" value="2"> female
+                </label>
+            </div>
+        </div>
+        <div align="center">
+            <input type="submit" class="btn btn-primary btn-sm" value="submit">
+            <input type="reset" class="btn btn-default btn-sm" value="reset">
+        </div>
+    </form>
+</div>
+<script src="/javascript/index.js"></script>
