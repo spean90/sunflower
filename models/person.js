@@ -1,13 +1,13 @@
-var db = require('./db')();
+var db = new require('./db');
 
 function Person(person) {
     this.username = person.username;
     this.password = person.password;
     this.tel = person.tel;
-    this.child.name = person.child.name;
-    this.child.age = person.child.age;
-    this.child.class = person.child.class;
-    this.child.sex = person.child.sex;
+    this.child_name = person.child_name;
+    this.child_age = person.child_age;
+    this.child_class = person.child_class;
+    this.child_sex = person.child_sex;
 }
 
 module.exports = Person;
@@ -18,13 +18,14 @@ Person.prototype.save = function save(callback){
         password : this.password,
         tel : this.tel,
         child : {
-            name : this.child.name,
-            age : this.child.age,
-            class : this.child.class,
-            sex : this.child.sex
+            name : this.child_name,
+            age : this.child_age,
+            class : this.child_class,
+            sex : this.child_sex
         }
     }
-    db.collection("person").insert(user,{upsert:false, w: 1}, function (err,result) {
+
+    new db().collection("person").insert(user,{upsert:false, w: 1}, function (err,result) {
         console.log("err:"+err);
         console.log("result:"+result);
         callback(err,result);
@@ -32,7 +33,7 @@ Person.prototype.save = function save(callback){
 }
 
 Person.get = function get(username,callback){
-    db.collection('person').findOne({'username':username},
+    new db().collection('person').findOne({'username':username},
         function(err,doc){
             callback(err,doc);
         });

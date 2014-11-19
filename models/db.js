@@ -4,7 +4,7 @@ var settings =require('../settings');
  */
 var MongoClient = require('mongodb').MongoClient;
 var format = require('util').format;
-var url = format('mongodb://%s:%s@localhost:27017/demodb?w=1&readPreference=primaryPreferred',settings.username,settings.password);
+var url = format('mongodb://%s:%s@localhost:27017/%s?w=1&readPreference=primaryPreferred',settings.username,settings.password,settings.db);
 var mdb;
 MongoClient.connect(url,{
     db: {

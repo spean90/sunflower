@@ -20,8 +20,8 @@ router.get('/signup',function(req,res) {
 })
 
 router.post('/signup',function(req,res) {
-    console.dir(req.body.person);
-    var person = new Person(req.body.person);
+    console.dir(req.body);
+    var person = new Person(req.body);
     person.save(function(err,result){
        console.log('保存结束：'+err+"   "+result);
     });
