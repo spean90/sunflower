@@ -7,7 +7,7 @@
         </div>
         <% } %>
         <% if (error) { %>
-        <div class="alert alert-error">
+        <div class="alert alert-warning">
             <%= error %>
             <a href="#" class="close" data-dismiss="alert">&times;</a>
         </div>
@@ -18,7 +18,7 @@
             <button class="btn btn-success" style="width: 100px" data-toggle="modal" data-target="#loginPanel">sign in</button>
             <button class="btn btn-primary" onclick="index.signup()">sign up</button>
         <% } else { %>
-            Welcome <%=user.username%>,
+            Welcome  <a href='/user/detail/<%=user.username%>'><%=user.username%> </a>,
             <a class="btn btn-link" href="/user/signout">sign out</a>
         <% } %>
     </div>

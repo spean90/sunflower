@@ -1,9 +1,9 @@
-var db = new require('./db');
-
+var db = require('./db');
 function Person(person) {
     this.username = person.username;
     this.password = person.password;
     this.tel = person.tel;
+    this.address = person.address;
     this.child_name = person.child_name;
     this.child_age = person.child_age;
     this.child_class = person.child_class;
@@ -17,15 +17,16 @@ Person.prototype.save = function save(callback){
         username : this.username,
         password : this.password,
         tel : this.tel,
-        child : {
+        address : this.address,
+        childs : [{
             name : this.child_name,
             age : this.child_age,
             class : this.child_class,
             sex : this.child_sex
-        }
+        }]
     }
 
-    new db().collection("person").insert(user,{upsert:false, w: 1}, function (err,result) {
+    db().collection("person").insert(user,{upsert:false, w: 1}, function (err,result) {
         console.log("err:"+err);
         console.log("result:"+result);
         callback(err,result);
@@ -33,7 +34,7 @@ Person.prototype.save = function save(callback){
 }
 
 Person.get = function get(username,callback){
-    new db().collection('person').findOne({'username':username},
+    db().collection('person').findOne({'username':username},
         function(err,doc){
             callback(err,doc);
         });

@@ -26,5 +26,5 @@ MongoClient.connect(url,{
     mdb = database;
 });
 module.exports = function(){
-    return mdb;
+    return  mdb;
 }

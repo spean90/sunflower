@@ -7,7 +7,7 @@ var index = {
     },
     signup : function() {
         var url = '/user/signup';
-        window.open(url,'_blank');
+        window.open(url,'_parent');
     }
 
 }
