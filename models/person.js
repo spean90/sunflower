@@ -39,3 +39,32 @@ Person.get = function get(username,callback){
             callback(err,doc);
         });
 }
+
+Person.update = function update(username,tel,address,password,callback) {
+    new db().collection('person').update({'username' : username},{$set : {'tel':tel,'address':address}},
+        function(err,doc){
+            callback(err,doc);
+    })
+}
+
+Person.updatePassword = function (username,password,callback) {
+    new db().collection('person').update({'username' : username},{$set : {'password':password}},
+        function(err,doc){
+            callback(err,doc);
+        })
+}
+
+Person.addChild = function(username,child,callback) {
+    new db().collection('person').update({'username' : username},{$push : {'childs':child}},
+        function(err,doc){
+            callback(err,doc);
+        })
+}
+
+Person.deleteChild = function(username,child_name,callback) {
+    new db().collection('person').update({'username' : username},{$pull : {'childs':{'name':child_name}}},
+        function(err,doc){
+            callback(err,doc);
+        })
+}
+

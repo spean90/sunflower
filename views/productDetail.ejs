@@ -1,0 +1,22 @@
+<h1><%=title%></h1>
+<hr/>
+<div>套餐：<%=product.productName%></div>
+<div>费用（每月）：<%=product.fee%></div>
+<div>套餐内容：<%=product.content%></div>
+<hr/>
+<table class="table table-bordered table-responsive table-hover table-striped" style="text-align: center">
+    <thead >
+    <tr>
+        <th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
+        <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% user.childs.forEach(function(child){%>
+    <tr>
+        <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
+        <td><button class="btn btn-success" >报名</button></td>
+    </tr>
+    <%}) %>
+    </tbody>
+</table>

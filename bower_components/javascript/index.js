@@ -6,7 +6,7 @@ var index = {
         $('#loginForm').submit();
     },
     signup : function() {
-        var url = '/user/signup';
+        var url = '/signup';
         window.open(url,'_parent');
     }
 

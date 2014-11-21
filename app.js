@@ -9,6 +9,7 @@ var logger = require('morgan');
 var path = require('path');
 var index = require('./router/index.js');
 var user = require('./router/user.js');
+var product = require('./router/product.js')
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var expressLayouts = require('express-ejs-layouts');
@@ -27,7 +28,7 @@ app.use(expressLayouts);
 app.use(session({
     secret: settings.cookieSecret,
     name: 'sunflower_name',
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    cookie: {maxAge: 1000 * 60 * 30},//30 minuter
     store: new MongoStore({
         db : settings.db,
         username : settings.username,
@@ -38,6 +39,15 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use('/',index);
+app.use(function(req,res,next) {
+    console.dir(req.session.user);
+    if(!req.session.user){
+        req.flash('error','请先登录！');
+        return res.redirect('/')
+    }
+    next();
+})
+app.use('/product',product);
 app.use('/user',user);
 app.use(function(req,res,next){
     var err = new Error('Not Found');

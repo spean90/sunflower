@@ -1,6 +1,32 @@
 <div class="container">
+    <nav class="navbar navbar-default" style="margin-top:0; background-color: #fff8cc;background-origin:content-box;"  role="navigation">
+        <div class="navbar-header"><a class="navbar-brand" href="/">SunFlower</a> </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                <li class="active"><a href="#">个人中心</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
     <h1><%=title%></h1>
-    <form role="form" class="form-horizontal">
+    <hr />
+    <h4>用户信息</h4>
+    <% if (success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+    </div>
+    <% } %>
+    <% if (error) { %>
+    <div class="alert alert-warning">
+        <%= error %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+    </div>
+    <% } %>
+    <form role="form" class="form-horizontal" action="/user/updateInfo" method="post">
         <div class="form-group">
             <label class="control-label col-sm-2" for="username">用户名：</label>
             <div class="col-sm-10">
@@ -26,26 +52,59 @@
     </form>
 
     <hr /><br/>
-    <h2>小孩信息</h2>
+    <h4>小孩信息</h4>
     <br/>
     <table class="table table-bordered table-responsive table-hover table-striped" style="text-align: center">
         <thead >
             <tr>
                 <th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
-                <th style="text-align: center">班级</th><th style="text-align: center">性别</th>
+                <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
             <% user.childs.forEach(function(child){%>
                 <tr>
                     <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
+                    <td><a href="/user/child_delete/<%=child.name%>"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;
+                        <button class="btn-link" data-toggle="modal" data data-target="alter_child"><span class="glyphicon glyphicon-wrench"></span></button></td>
                 </tr>
             <%}) %>
         </tbody>
     </table>
-    <button class="btn btn-small btn-success">添加小孩</button>
+    <button class="btn btn-small btn-success" data-toggle="modal" data-target="#addChildModal">添加小孩</button>
 
     <div id="alterPassword" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="/user/alterPassword" method="post">
+                        <div class="form-group">
+                            <label for="password">密码：</label>
+                            <input id="password" class="form-control" name="password" placeholder="原始密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">新密码：</label>
+                            <input id="new_password" class="form-control" name="new_password" placeholder="新密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="re_password">确认密码：</label>
+                            <input id="re_password" class="form-control" name="re_password" placeholder="确认密码">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="修改">
+                            <input type="reset" class="btn btn-default" value="重置">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addChildModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -70,15 +129,15 @@
                             <label>性别：</label>
                             <div>
                                 <label class="radio-inline">
-                                    <input type="radio" name="child_sex" value="1" checked> 男
+                                    <input type="radio" name="child_sex" value="男" checked> 男
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="child_sex" value="2"> 女
+                                    <input type="radio" name="child_sex" value="女"> 女
                                 </label>
                             </div>
                         </div>
                         <div align="center">
-                            <input type="button" onclick="signup.submit()" class="btn btn-primary btn-sm" value="submit">
+                            <input type="submit" class="btn btn-primary btn-sm" value="submit">
                             <input type="reset" class="btn btn-default btn-sm" value="reset">
                         </div>
                     </form>

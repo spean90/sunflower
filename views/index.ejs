@@ -1,4 +1,4 @@
-<div class="jumbotron" style="background-color: #f7ff98;background-origin:content-box;">
+<div class="jumbotron" style="background-color: #fffd98;background-origin:content-box;">
     <div class="container" align="center">
         <% if (success) { %>
         <div class="alert alert-success">
@@ -18,9 +18,63 @@
             <button class="btn btn-success" style="width: 100px" data-toggle="modal" data-target="#loginPanel">sign in</button>
             <button class="btn btn-primary" onclick="index.signup()">sign up</button>
         <% } else { %>
-            Welcome  <a href='/user/detail/<%=user.username%>'><%=user.username%> </a>,
-            <a class="btn btn-link" href="/user/signout">sign out</a>
+            欢迎您  <%=user.username%>,
+            <a href='/user/detail/<%=user.username%>'>个人中心</a>
+            <a class="btn btn-link" href="/signout">退出</a>
         <% } %>
+    </div>
+</div>
+
+<div class="container" >
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <a href="/product/productDetail/zhongtuo"> <img src="/image/pic1.jpg"
+                         alt="通用的占位符缩略图" align="center"></a>
+
+                <div  class="carousel-caption">
+                    <h2><span style="color: #ff0000">中托</span> </h2>
+                    <h3><span style="color: #ff0000">套餐内容：中午上下学接送、午餐、午休、作业辅导;</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <a href="/product/productDetail/wutuo"><img src="/image/pic1.jpg"
+                     alt="通用的占位符缩略图"></a>
+                <div  class="carousel-caption">
+                    <h2><span style="color: #ff0000">午托</span> </h2>
+                    <h3><span style="color: #ff0000">套餐内容：中午上下学接送、下午放学至旁晚6点前、午餐、午休、作业辅导；</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <a href="/product/productDetail/wuwantuo"><img src="/image/pic1.jpg"
+                     alt="通用的占位符缩略图"></a>
+                <div  class="carousel-caption">
+                    <h2><span style="color: #ff0000">午晚托</span> </h2>
+                    <h3><span style="color: #ff0000">套餐内容：中午上下学接送、下午放学至晚上8点、午餐、晚餐、午休、作业辅导；</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <a href="/product/productDetail/wantuo"><img src="/image/pic1.jpg"
+                     alt="通用的占位符缩略图"></a>
+                <div  class="carousel-caption">
+                    <h2><span style="color: #ff0000">晚托</span> </h2>
+                    <h3><span style="color: #ff0000">套餐内容：下午放学至晚上8点、晚餐、作业辅导；</span></h3>
+                </div>
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;</a>
     </div>
 </div>
 
@@ -35,7 +89,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <form role="form" id="loginForm" action="/user/login" method="post">
+                <form role="form" id="loginForm" action="/login" method="post">
                     <div class="form-group">
                         <label for="username">账号：</label>
                         <input id="username" name="username" class="form-control" type="text" placeholder="账号">
