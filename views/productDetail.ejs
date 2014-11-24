@@ -1,22 +1,66 @@
-<h1><%=title%></h1>
-<hr/>
-<div>套餐：<%=product.productName%></div>
-<div>费用（每月）：<%=product.fee%></div>
-<div>套餐内容：<%=product.content%></div>
-<hr/>
-<table class="table table-bordered table-responsive table-hover table-striped" style="text-align: center">
-    <thead >
-    <tr>
-        <th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
-        <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% user.childs.forEach(function(child){%>
-    <tr>
-        <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
-        <td><button class="btn btn-success" >报名</button></td>
-    </tr>
-    <%}) %>
-    </tbody>
-</table>
+<div class="container">
+    <nav class="navbar navbar-default" style="margin-top:0; background-color: #fff8cc;background-origin:content-box;"  role="navigation">
+        <div class="navbar-header"><a class="navbar-brand" href="/">SunFlower</a> </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="/user/detail/<%=user.username%>">个人中心</a></li>
+                <% if(user.username=='hsp'){%>
+                <li class=><a href="/product/productList">套餐管理</a></li>
+                <%}%>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <h1><%=title%></h1>
+    <hr/>
+    <div><h3 style="display: inline">套餐：</h3>&nbsp;&nbsp;<strong><%=product.productName%></strong></div>
+    <div><h3 style="display: inline">费用</h3>（每月）：&nbsp;&nbsp;<strong><%=product.productFee%>（元）</strong></div>
+    <div><h3 style="display: inline">套餐内容：</h3>&nbsp;&nbsp;<strong><%=product.productContent%></strong></div>
+    <hr/>
+    <table class="table table-bordered table-responsive table-hover table-striped" style="text-align: center">
+        <thead >
+        <tr>
+            <th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
+            <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% user.childs.forEach(function(child){%>
+        <tr>
+            <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
+            <td><%if(product.productName!=child.product){%>
+                <a class="btn btn-success" href="/user/joinProduct/<%=child.name%>/<%=product.productName%>">报名</a>
+                <%} else {%>
+                <button class="btn btn-default" disabled>已报名</button>
+                <%}%>
+            </td>
+        </tr>
+        <%}) %>
+        </tbody>
+    </table>
+    <% if(user.username=='hsp'){%>
+    <h1>已报名的同学</h1>
+    <hr/>
+    <table class="table table-bordered table-responsive table-hover table-striped" style="text-align: center">
+        <thead >
+        <tr>
+            <th style="text-align: center">家长</th><th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
+            <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% childs.forEach(function(child){%>
+        <tr>
+            <td><%=child.father%><td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
+            <td>
+                <a class="glyphicon glyphicon-remove" href="/user/removeProduct/<%=child.name%>>"></a>
+            </td>
+        </tr>
+        <%}) %>
+        </tbody>
+    </table>
+    <%}%>
+
+</div>

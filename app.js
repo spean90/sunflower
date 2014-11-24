@@ -40,7 +40,7 @@ app.use(session({
 }));
 app.use('/',index);
 app.use(function(req,res,next) {
-    console.dir(req.session.user);
+    //console.dir(req.session.user);
     if(!req.session.user){
         req.flash('error','请先登录！');
         return res.redirect('/')

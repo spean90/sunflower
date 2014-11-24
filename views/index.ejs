@@ -21,6 +21,9 @@
             欢迎您  <%=user.username%>,
             <a href='/user/detail/<%=user.username%>'>个人中心</a>
             <a class="btn btn-link" href="/signout">退出</a>
+            <% if(user.username=='hsp') {%>
+            <a href='/product/productList'>套餐管理</a>
+            <% } %>
         <% } %>
     </div>
 </div>

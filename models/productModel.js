@@ -27,3 +27,16 @@ Product.get = function(productName,callback) {
     })
 }
 
+Product.getAll = function(callback) {
+    var cursor = new db().collection('product').find({});
+    cursor.toArray(function(err,products) {
+        callback(err,products);
+    })
+}
+
+Product.delete = function(productName,callback) {
+    new db().collection('product').remove({'productName':productName},function(err,result) {
+        callback(err,result);
+    });
+}
+

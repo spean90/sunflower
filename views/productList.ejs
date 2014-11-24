@@ -1,0 +1,88 @@
+<div class="container">
+    <nav class="navbar navbar-default" style="margin-top:0; background-color: #fff8cc;background-origin:content-box;"  role="navigation">
+        <div class="navbar-header"><a class="navbar-brand" href="/">SunFlower</a> </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="/user/detail/<%=user.username%>">个人中心</a></li>
+                <li class="active"><a href="/product/productList">套餐管理</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <h2><%=title%></h2>
+    <hr />
+    <% if(success) {%>
+        <div class="alert alert-success">
+            <%= success %>
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+        </div>
+    <%}%>
+    <% if (error) { %>
+    <div class="alert alert-warning">
+        <%= error %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+    </div>
+    <% } %>
+
+    <table class="table-hover table table-responsive table-striped table-bordered" style="text-align: center">
+        <caption>套餐列表</caption>
+        <thead>
+            <tr>
+                <th style="text-align: center">套餐名称</th>
+                <th style="text-align: center">价格</th>
+                <th style="text-align: center">套餐内容</th>
+                <th style="text-align: center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(function(product) {%>
+                <tr>
+                    <td><%=product.productName%></td>
+                    <td><%=product.productFee%></td>
+                    <td><%=product.productContent%></td>
+                    <td><a href="/product/delete/<%=product.productName%>"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;
+                        <a href="/product/productDetail/<%=product.productName%>"><span class=".glyphicon .glyphicon-eye-open"></span></a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <button class="btn btn-success" data-toggle="modal" data-target="#addProduct">添加套餐</button>
+
+    <div class="modal fade" id="addProduct">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">添加套餐</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="/product/addProduct" method="post">
+                        <div class="form-group">
+                            <label for="productName">套餐名称</label>
+                            <input id="productName" class="form-control" required="true" name="productName" type="text" placeholder="套餐名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="productFee">套餐价格</label>
+                            <input id="productFee" class="form-control" required="true" name="productFee" type="number" placeholder="套餐价格">
+                        </div>
+                        <div class="form-group">
+                            <label for="productContent">套餐内容</label>
+                            <textarea id="productContent" class="form-control" name="productContent" required="true" placeholder="套餐内容" rows="5" cols="50"></textarea>
+                        </div>
+                        <div class="form-group">
+                           <input type="submit" class="btn btn-primary" value="提交">
+                           <input type="reset" class="btn btn-default" value="重置">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

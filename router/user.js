@@ -107,3 +107,13 @@ router.get('/child_delete/:child_name',function(req,res) {
         })
     })
 })
+
+router.get('/joinProduct/:child_name/:productName',function(req,res) {
+    Person.joinProduct(req.session.user.username,req.params.child_name,req.params.productName,function(err,result) {
+        if(err){
+            req.flash('error','操作数据库异常，稍后再试！');
+           // return res.redirect('/product/productDetail/'+req.params.productName);
+        }
+        return res.redirect('/product/productDetail/'+req.params.productName);
+    })
+})
