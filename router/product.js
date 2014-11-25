@@ -2,35 +2,69 @@ var express = require('express');
 var router = express.Router();
 var Product = require('../models/productModel');
 var Person = require('../models/person');
+var async = require('async');
 module.exports = router;
 
 router.get('/productDetail/:productName',function(req,res) {
-    Product.get(req.params.productName,function(err,product) {
-        if(!product){
-            err = '该套餐已失效，请直接与我们联系！';
+
+    /**
+     * 使用async.parallel;优化代码；
+     */
+    async.parallel([function(callback) {
+        Person.get(req.session.user.username,callback);
+    },function(callback) {
+        Product.get(req.params.productName,callback);
+    },function(callback) {
+        Person.findChildsByProduct(req.params.productName,callback);
+    }],function (err, results) {
+//        console.log('1.1 err: ', err);
+//        console.log('1.1 results: ', results);
+        if(!results[1]){
+            err = "该套餐已失效，请直接与我们联系！";
         }
         if(err){
             req.flash('error',err)
             return res.redirect('/');
         }
-        Person.get(req.session.user.username,function(err,user){
-            if(err){
-                req.flash('error',err)
-                return res.redirect('/');
-            }
-            Person.findByProduct(req.params.productName,function(err,childs){
-                res.render('productDetail',{
-                    'title' : '套餐详情',
-                    'user' : user,
-                    'product' : product,
-                    'childs' :childs,
-                    'error' : req.flash('error').toString(),
-                    'success' : req.flash('success').toString()
-                })
-            });
+        res.render('productDetail',{
+            'title' : '套餐详情',
+            'user' : results[0],
+            'product' : results[1],
+            'childs' :results[2],
+            'error' : req.flash('error').toString(),
+            'success' : req.flash('success').toString()
         })
-
     })
+
+    /**
+     * 一般方法***  使用上面的async.parallel代替；
+     */
+//    Product.get(req.params.productName,function(err,product) {
+//        if(!product){
+//            err = '该套餐已失效，请直接与我们联系！';
+//        }
+//        if(err){
+//            req.flash('error',err)
+//            return res.redirect('/');
+//        }
+//        Person.get(req.session.user.username,function(err,user){
+//            if(err){
+//                req.flash('error',err)
+//                return res.redirect('/');
+//            }
+//            Person.findByProduct(req.params.productName,function(err,childs){
+//                res.render('productDetail',{
+//                    'title' : '套餐详情',
+//                    'user' : user,
+//                    'product' : product,
+//                    'childs' :childs,
+//                    'error' : req.flash('error').toString(),
+//                    'success' : req.flash('success').toString()
+//                })
+//            });
+//        })
+//
+//    })
 })
 
 router.get('/productList',function(req,res) {
@@ -53,6 +87,7 @@ router.post('/addProduct',function(req,res) {
     var param = req.body;
     var product = new Product({
         productName : param.productName,
+        productTitle : param.productTitle,
         productFee : param.productFee,
         productContent : param.productContent
     });

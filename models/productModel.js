@@ -2,6 +2,7 @@ var db = require('./db');
 
 var Product = function(product) {
     this.productName = product.productName;
+    this.productTitle = product.productTitle;
     this.productFee = product.productFee;
     this.productContent = product.productContent;
 }
@@ -11,6 +12,7 @@ module.exports = Product;
 Product.prototype.save = function save(callback) {
     var product = {
         productName : this.productName,
+        productTitle : this.productTitle,
         productFee : this.productFee,
         productContent : this.productContent
     }

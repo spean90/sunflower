@@ -51,7 +51,10 @@ router.get('/signup',function(req,res) {
 
 router.post('/signup',function(req,res) {
     console.dir(req.body);
-
+    if(req.body.password!=req.body.re_password){
+        req.flash('error', "密码输入不一致！");
+        return res.redirect('/signup');
+    }
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
     var person = new Person({
@@ -69,12 +72,12 @@ router.post('/signup',function(req,res) {
             err = 'Username already exists.';
         if (err) {
             req.flash('error', err);
-            return res.redirect('/user/signup');
+            return res.redirect('/signup');
         }
         person.save(function(err,result){
             if (err) {
                 req.flash('error', err);
-                return res.redirect('/user/signup');
+                return res.redirect('/signup');
             }
             req.flash('success','注册成功！');
             req.session.user = person;

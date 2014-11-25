@@ -68,14 +68,14 @@ Person.deleteChild = function(username,child_name,callback) {
         })
 }
 
-Person.joinProduct = function(username,child_name,productName,callback) {
+Person.setProduct = function(username,child_name,productName,callback) {
     new db().collection('person').update({'username' : username,'childs.name':child_name},{$set : {'childs.$.product':productName}},
         function(err,doc){
             callback(err,doc);
         })
 }
 
-Person.findByProduct = function(productName,callback) {
+Person.findChildsByProduct = function(productName,callback) {
     var cursor = new db().collection('person').find({'childs.product' : productName},function(err,result){
         if(err){
             return callback(err,result);
@@ -98,4 +98,6 @@ Person.findByProduct = function(productName,callback) {
             callback(err,childs);
         })
     });
-}
+};
+
+

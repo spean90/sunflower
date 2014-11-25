@@ -15,7 +15,7 @@
 <div class="container">
     <h1><%=title%></h1>
     <hr/>
-    <div><h3 style="display: inline">套餐：</h3>&nbsp;&nbsp;<strong><%=product.productName%></strong></div>
+    <div><h3 style="display: inline">套餐：</h3>&nbsp;&nbsp;<strong><%=product.productTitle%></strong></div>
     <div><h3 style="display: inline">费用</h3>（每月）：&nbsp;&nbsp;<strong><%=product.productFee%>（元）</strong></div>
     <div><h3 style="display: inline">套餐内容：</h3>&nbsp;&nbsp;<strong><%=product.productContent%></strong></div>
     <hr/>
@@ -30,10 +30,10 @@
         <% user.childs.forEach(function(child){%>
         <tr>
             <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
-            <td><%if(product.productName!=child.product){%>
+            <td><%if(product.productName!=child.product && !child.product){%>
                 <a class="btn btn-success" href="/user/joinProduct/<%=child.name%>/<%=product.productName%>">报名</a>
                 <%} else {%>
-                <button class="btn btn-default" disabled>已报名</button>
+                <button class="btn btn-link" disabled>已报名<%=child.product%></button>
                 <%}%>
             </td>
         </tr>
@@ -55,7 +55,7 @@
         <tr>
             <td><%=child.father%><td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
             <td>
-                <a class="glyphicon glyphicon-remove" href="/user/removeProduct/<%=child.name%>>"></a>
+                <a class="glyphicon glyphicon-remove" href="/user/removeProduct/<%=child.name%>/<%=child.father%>/<%=product.productName%>"></a>
             </td>
         </tr>
         <%}) %>

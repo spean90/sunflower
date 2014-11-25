@@ -2,10 +2,6 @@
 <div class="container">
     <h1 ><%=title%></h1>
     <hr />
-    <div id="alert" class="alert alert-warning fade in" hidden="hidden">
-        密码输入不一致！
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-    </div>
     <% if (error) { %>
     <div class="alert alert-warning">
         <%= error %>
@@ -73,9 +69,8 @@
             </div>
         </div>
         <div align="center">
-            <input type="button" onclick="signup.submit()" class="btn btn-primary btn-sm" value="submit">
+            <input type="submit"  class="btn btn-primary btn-sm" value="submit">
             <input type="reset" class="btn btn-default btn-sm" value="reset">
         </div>
     </form>
 </div>
-<script src="/javascript/signup.js"></script>
