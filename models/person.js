@@ -4,6 +4,7 @@ function Person(person) {
     this.password = person.password;
     this.tel = person.tel;
     this.address = person.address;
+    this.email = person.email;
     this.child_name = person.child_name;
     this.child_age = person.child_age;
     this.child_class = person.child_class;
@@ -18,6 +19,7 @@ Person.prototype.save = function save(callback){
         password : this.password,
         tel : this.tel,
         address : this.address,
+        email : this.email,
         childs : [{
             name : this.child_name,
             age : this.child_age,
@@ -90,6 +92,7 @@ Person.findChildsByProduct = function(productName,callback) {
                     doc.childs.forEach(function(child){
                         if(child.product == productName){
                             child.father = doc.username;
+                            child.father_email = doc.email;
                             childs.push(child);
                         }
                     })

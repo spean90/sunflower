@@ -3,6 +3,14 @@ var router = express.Router();
 var Product = require('../models/productModel');
 var Person = require('../models/person');
 var async = require('async');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'spean90@gmail.com',
+        pass: 'cqmyg12345'
+    }
+});
 module.exports = router;
 
 router.get('/productDetail/:productName',function(req,res) {
@@ -119,4 +127,25 @@ router.get('/delete/:productName',function(req,res){
         //req.flash('success','删除成功！');
         return res.redirect('/product/productList');
     })
+})
+
+router.get('/noticeUser/:email/:productName',function(req,res) {
+    console.log('email:'+req.params.email);
+    transporter.sendMail({
+        from: 'spean90@gmail.com',
+        to: req.params.email,
+        subject: '来自向日葵的问候',
+        text: '您好，该进贡了！谢谢'
+    },function(error, info){
+        if(error){
+            req.flash('error',"邮件发送失败！");
+            console.log(error);
+        }else{
+            req.flash('success',"邮件发送成功！");
+            console.log('Message sent: ' + info.response);
+        }
+
+        return res.redirect('/product/productDetail/'+req.params.productName);
+    });
+
 })

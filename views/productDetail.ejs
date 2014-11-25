@@ -13,6 +13,18 @@
     </nav>
 </div>
 <div class="container">
+    <% if (success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+    </div>
+    <% } %>
+    <% if (error) { %>
+    <div class="alert alert-warning">
+        <%= error %>
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+    </div>
+    <% } %>
     <h1><%=title%></h1>
     <hr/>
     <div><h3 style="display: inline">套餐：</h3>&nbsp;&nbsp;<strong><%=product.productTitle%></strong></div>
@@ -56,6 +68,7 @@
             <td><%=child.father%><td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
             <td>
                 <a class="glyphicon glyphicon-remove" href="/user/removeProduct/<%=child.name%>/<%=child.father%>/<%=product.productName%>"></a>
+                <a class="glyphicon glyphicon-envelope" href="/product/noticeUser/<%=child.father_email%>/<%=product.productName%>"></a>
             </td>
         </tr>
         <%}) %>
