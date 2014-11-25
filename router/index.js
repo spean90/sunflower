@@ -9,7 +9,7 @@ module.exports = router;
 
 router.get('/',function(req,res){
     res.render('index',{
-        title : 'It is never too late to be what you might have been.',//'做积极向上的向日葵！'
+        title : '向日葵托管',//'做积极向上的向日葵！'
         user : req.session.user,
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
