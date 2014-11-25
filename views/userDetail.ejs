@@ -61,13 +61,14 @@
         <thead >
             <tr>
                 <th style="text-align: center">姓名</th><th style="text-align: center">年龄</th>
-                <th style="text-align: center">班级</th><th style="text-align: center">性别</th><th style="text-align: center">操作</th>
+                <th style="text-align: center">班级</th><th style="text-align: center">性别</th>
+                <th style="text-align: center">已参加</th><th style="text-align: center">操作</th>
             </tr>
         </thead>
         <tbody>
             <% user.childs.forEach(function(child){%>
                 <tr>
-                    <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td>
+                    <td><%=child.name%></td><td><%=child.age%></td><td><%=child.class%></td><td><%=child.sex%></td><td><%=child.product%></td>
                     <td><a href="/user/child_delete/<%=child.name%>"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;
                         <button class="btn-link" data-toggle="modal" data data-target="alter_child"><span class="glyphicon glyphicon-wrench"></span></button></td>
                 </tr>
