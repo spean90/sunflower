@@ -42,8 +42,8 @@ Person.get = function get(username,callback){
         });
 }
 
-Person.update = function update(username,tel,address,password,callback) {
-    new db().collection('person').update({'username' : username},{$set : {'tel':tel,'address':address}},
+Person.update = function update(username,tel,address,email,callback) {
+    new db().collection('person').update({'username' : username},{$set : {'tel':tel,'address':address,'email':email}},
         function(err,doc){
             callback(err,doc);
     })

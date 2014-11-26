@@ -30,7 +30,7 @@ router.get('/detail',function(req,res){
 
 router.post('/updateInfo',function(req,res) {
     console.dir(req.body);
-    Person.update(req.session.user.username,req.body.tel,req.body.address,function(err,result) {
+    Person.update(req.session.user.username,req.body.tel,req.body.address,req.body.email,function(err,result) {
         if(err){
             req.flash("error",err)
             return req.redirect('/user/detail')
