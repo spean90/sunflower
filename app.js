@@ -31,8 +31,11 @@ app.use(session({
     cookie: {maxAge: 1000 * 60 * 30},//30 minuter
     store: new MongoStore({
         db : settings.db,
+        host : settings.host,
+        port : settings.port,
         username : settings.username,
-        password : settings.password
+        password : settings.password,
+        auto_reconnect : true
     }), // connect-mongo session store
     proxy: true,
     resave: true,
@@ -40,7 +43,7 @@ app.use(session({
 }));
 app.use('/',index);
 app.use(function(req,res,next) {
-    //console.dir(req.session.user);
+    console.log("进程id"+process.pid);
     if(!req.session.user){
         req.flash('error','请先登录！');
         return res.redirect('/')
@@ -70,6 +73,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-app.listen(3000,function(){
-    console.log('Express server listening on port ' + 3000)
-});
+module.exports = app;
+//app.listen(3000,function(){  //百度云需要监听18080
+//    console.log('Express server listening on port ' + 3000)
+//});

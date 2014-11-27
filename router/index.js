@@ -17,7 +17,6 @@ router.get('/',function(req,res){
 })
 
 
-
 router.post('/login',function(req,res){
     Person.get(req.body.username,function(err,user){
         if(!user){
@@ -62,6 +61,7 @@ router.post('/signup',function(req,res) {
         password : password,
         tel :req.body.tel,
         address : req.body.address,
+        email : req.body.email,
         child_name : req.body.child_name,
         child_age : req.body.child_age,
         child_class : req.body.child_class,

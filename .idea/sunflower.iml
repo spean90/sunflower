@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../AngularJs" />
+    <content url="file://$MODULE_DIR$/../Demo-Film" />
+    <content url="file://$MODULE_DIR$/../N-blog" />
+    <content url="file://$MODULE_DIR$/../NodeDemo" />
+    <content url="file://$MODULE_DIR$/../NodeTest" />
+    <content url="file://$MODULE_DIR$/../async_demo-master" />
+    <content url="file://$MODULE_DIR$/../ejs-master" />
+    <content url="file://$MODULE_DIR$/../express4.x-mongoose-demo-master" />
+    <content url="file://$MODULE_DIR$/../microblog-master" />
+    <content url="file://$MODULE_DIR$/../node-mongodb-native-master" />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sunflower node_modules" level="application" />
+  </component>
+</module>
+
