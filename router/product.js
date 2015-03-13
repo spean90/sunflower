@@ -4,14 +4,64 @@ var Product = require('../models/productModel');
 var Person = require('../models/person');
 var async = require('async');
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
+// 开启一个 SMTP 连接池
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    host: "smtp.163.com",
     auth: {
-        user: 'spean90@gmail.com',
-        pass: '*********'
+        user: "huangsiping1990@163.com", // 账号
+        pass: "*******" // 密码
     }
 });
+//var transporter = nodemailer.createTransport({
+//    service: 'Gmail',
+//    auth: {
+//        user: 'spean90@gmail.com',
+//        pass: 'cqmyg12345'
+//    }
+//});
+
+
 module.exports = router;
+
+router.get('/cb',function(req,res) {
+    res.render('callbackpage',{
+        success : req.flash('success').toString()
+    });
+    smtpTransport.sendMail({
+        from: 'huangsiping1990@163.com',
+        to: '569510125@qq.com',
+        subject: 'hr浏览了简历',
+        text: 'hr点击进入了回执页面'
+    },function(error, info){
+    });
+});
+router.post('/callback',function(req,res) {
+    console.log('...点击了提交按钮');
+    var param = req.body;
+    console.log('result:'+param.result);
+    console.log('msg:'+param.msg);
+    smtpTransport.sendMail({
+        from: 'huangsiping1990@163.com',
+        to: '569510125@qq.com',
+        subject: 'hr回执',
+        text: '回执:'+param.result+"     msg: "+param.msg
+    },function(error, info){
+        if(error){
+            req.flash('success',"邮件发送失败！不过还是感谢您的反馈，谢谢！");
+            console.log(error);
+        }else{
+            req.flash('success',"感谢您的回执，已经收到邮件，谢谢您!");
+            console.log(info);
+        }
+
+        res.render('callbackpage',{
+            success : req.flash('success').toString()
+        });
+    });
+
+
+});
+
 
 router.get('/productDetail/:productName',function(req,res) {
 

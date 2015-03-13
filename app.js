@@ -42,14 +42,14 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use('/',index);
-app.use(function(req,res,next) {
-    console.log("进程id"+process.pid);
-    if(!req.session.user){
-        req.flash('error','请先登录！');
-        return res.redirect('/')
-    }
-    next();
-})
+//app.use(function(req,res,next) {
+//    console.log("进程id"+process.pid);
+//    if(!req.session.user){
+//        req.flash('error','请先登录！');
+//        return res.redirect('/')
+//    }
+//    next();
+//})
 app.use('/product',product);
 app.use('/user',user);
 app.use(function(req,res,next){
@@ -74,6 +74,6 @@ app.use(function(err, req, res, next) {
     });
 });
 module.exports = app;
-//app.listen(3000,function(){  //百度云需要监听18080
-//    console.log('Express server listening on port ' + 3000)
-//});
+app.listen(3000,function(){  //百度云需要监听18080
+    console.log('Express server listening on port ' + 3000)
+});
