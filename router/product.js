@@ -9,7 +9,7 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
     host: "smtp.163.com",
     auth: {
         user: "huangsiping1990@163.com", // 账号
-        pass: "*******" // 密码
+        pass: "****" // 密码
     }
 });
 //var transporter = nodemailer.createTransport({
@@ -23,14 +23,16 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
 
 module.exports = router;
 
-router.get('/cb',function(req,res) {
+router.get('/cb/:company',function(req,res) {
     res.render('callbackpage',{
+        company : req.params.company,
         success : req.flash('success').toString()
     });
+    console.log(req.params.company+'点击了回执');
     smtpTransport.sendMail({
         from: 'huangsiping1990@163.com',
         to: '569510125@qq.com',
-        subject: 'hr浏览了简历',
+        subject: req.params.company+'hr浏览了简历',
         text: 'hr点击进入了回执页面'
     },function(error, info){
     });
@@ -38,12 +40,13 @@ router.get('/cb',function(req,res) {
 router.post('/callback',function(req,res) {
     console.log('...点击了提交按钮');
     var param = req.body;
+    console.log('company:'+param.company);
     console.log('result:'+param.result);
     console.log('msg:'+param.msg);
     smtpTransport.sendMail({
         from: 'huangsiping1990@163.com',
         to: '569510125@qq.com',
-        subject: 'hr回执',
+        subject: param.company+'hr回执',
         text: '回执:'+param.result+"     msg: "+param.msg
     },function(error, info){
         if(error){
@@ -55,6 +58,7 @@ router.post('/callback',function(req,res) {
         }
 
         res.render('callbackpage',{
+            company : param.company,
             success : req.flash('success').toString()
         });
     });
